@@ -1,0 +1,18 @@
+form {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+    color: black;
+}
+
+.form-title {
+    margin: 0;
+    padding: 20px 0;
+}
+
+input {
+    min-height: 30px;
+    margin: 3px 0;
+    padding-left: 6px;
+}
+

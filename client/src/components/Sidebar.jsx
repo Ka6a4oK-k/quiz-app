@@ -1,15 +1,14 @@
 import React from 'react'
 import '../styles/sidebar.css'
+import { Link } from 'react-router-dom'
 
 export default function Sidebar() {
   return (
     <div className='sidebar'>
       <h1>Quizoff</h1>
       <ul>
-        <li>some link</li>
-        <li>another link</li>
-        <li>one more link</li>
-        <li>a link too</li>
+        <Link to='/login'>Login</Link>
+        <Link to='/registration'>Registration</Link>
       </ul>
     </div>
   )
