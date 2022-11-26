@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import bcrypt from 'bcryptjs'
 import '../styles/registration-login.css'
-import { useEffect } from 'react'
+import { Navigate } from 'react-router-dom'
 
 export default function Registration() {
 
@@ -20,13 +21,14 @@ export default function Registration() {
     setFormValidation(formData.email.match(EMAIL_REGX) &&
       formData.username.match(USERNAME_REGX) &&
       formData.password.match(PASSWORD_REGX))
-      console.log(formData);
   }, [formData])
 
   const register = async (e) => {
     e.preventDefault()
+    const hashedPass = await bcrypt.hash(formData.password, 10);
+    const user = {...formData, password: hashedPass}
     try {
-      await axios.post('http://localhost:3000/users', formData)
+      await axios.post('http://localhost:3000/users', user)
       setFormData({
         username: '',
         email: '',
