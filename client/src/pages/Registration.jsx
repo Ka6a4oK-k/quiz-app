@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import bcrypt from 'bcryptjs'
 import '../styles/registration-login.css'
-import { Navigate } from 'react-router-dom'
 
 export default function Registration() {
 

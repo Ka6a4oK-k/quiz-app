@@ -9,6 +9,7 @@ export default function Sidebar() {
       <ul>
         <Link to='/login'>Login</Link>
         <Link to='/registration'>Registration</Link>
+        <Link to='/createQuiz'>Create new quiz</Link>
       </ul>
     </div>
   )

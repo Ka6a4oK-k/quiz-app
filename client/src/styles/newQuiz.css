@@ -1,0 +1,9 @@
+.quiz-creation{
+    display: flex;
+    flex-direction: column;
+}
+
+textarea {
+    resize: none;
+    padding: 4px;
+}
