@@ -1,27 +1,69 @@
 import React, { useState } from 'react'
-import QuestionAdding from '../components/QuestionAdding'
+import QuestionAdding from '../components/NewQuiz/QuestionAdding'
+import AddedQuestion from '../components/NewQuiz/AddedQuestion'
+import { NewQuestionContext } from '../components/context/NewQuestionContext'
 import '../styles/newQuiz.css'
+import { useEffect } from 'react'
 
 export default function NewQuiz() {
 
-  const [newQuiz, setNewQuiz] = useState({})
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
+  const [questions, setQuestions] = useState([])
+  const [newQuestion, setNewQuestion] = useState()
 
-  const onchange = (e) => {
-    setNewQuiz({
-      ...newQuiz,
-      [e.target.name]: e.target.value
-    })
+  useEffect(()=>{
+    if(newQuestion){
+      setQuestions([...questions, newQuestion])
+    }
+  }, [newQuestion])
+
+  const saveQuiz = async () => {
+    if ((title.trim() !== '')
+      && (description.trim() !== '')
+      && (questions.length > 0)) {
+      const quiz = {
+        title,
+        description,
+        questions
+      }
+      
+    }
   }
 
   return (
-    <div className='quiz-creation'>
-      {/* <div className='quiz-creation title-description-stage'>
-        <h1 className='form-title'>Create new Quiz</h1>
-        <input type="text" name='quizTitle' onChange={onchange} placeholder='quiz title' />
-        <textarea name="quizDescription" onChange={onchange} cols="30" rows="3"></textarea>
-      </div> */}
-      {/* <button >Add question</button> */}
-       <QuestionAdding />
-    </div>
+    <NewQuestionContext.Provider value = {setNewQuestion}>
+      <div className='quiz-creation'>
+        <h1>New Quiz</h1>
+        <div>
+          <input
+            className='quizTitle'
+            onChange={(e) => { setTitle(e.target.value) }}
+            value={title} type="text"
+            placeholder='put quiz title here...'
+          />
+        </div>
+        <div>
+          <textarea
+            className='quizDescription'
+            onChange={(e) => { setDescription(e.target.value) }}
+            value={description}
+            cols="30"
+            rows="4"
+            placeholder='put quiz description here...'
+          >
+          </textarea>
+        </div>
+        <div className='addedQuestions'>
+          {questions.map((question, index) => {
+            return <AddedQuestion question={question} key={index} id={index}/>
+          })}
+        </div>
+        <QuestionAdding />
+        <div>
+          <button onClick={saveQuiz}>Save Quiz</button>
+        </div>
+      </div>
+    </NewQuestionContext.Provider>
   )
 }

@@ -1,9 +1,25 @@
 .quiz-creation{
     display: flex;
     flex-direction: column;
+    box-shadow: 0 0 10px black;
+    padding: 10px;
+    width: 500px
 }
 
 textarea {
+    width: 450px;
     resize: none;
     padding: 4px;
+}
+
+.addedQuestion {
+    box-shadow: 0 0 5px black;
+    margin: 10px 5px;
+    padding: 6px;
+}
+
+.option {
+    display:flex;
+    flex-direction: row;
+    align-items: center;
 }
