@@ -3,7 +3,6 @@ import { OptionContext } from '../../components/context/OptionContext'
 
 export default function OptionAdding(props) {
 
-
     const {options, setOptions} = useContext(OptionContext)
 
     const deleteOption = () => {

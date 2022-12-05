@@ -23,11 +23,13 @@ export default function NewQuiz() {
       && (description.trim() !== '')
       && (questions.length > 0)) {
       const quiz = {
+        user_id: '',
+        quiz_id: '',
         title,
         description,
         questions
       }
-      
+
     }
   }
 

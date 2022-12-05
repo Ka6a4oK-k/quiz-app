@@ -8,7 +8,6 @@ export default function QuestionAdding(props) {
     const [question, setQuestion] = useState('')
     const [options, setOptions] = useState([])
     const [newOption, setNewOption] = useState('')
-
     const setNewQuestion = useContext(NewQuestionContext)
 
     const acceptQuestion = () => {
