@@ -29,7 +29,6 @@ export default function NewQuiz() {
         description,
         questions
       }
-
     }
   }
 

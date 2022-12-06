@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import axios from 'axios'
-import bcrypt from 'bcryptjs'
 import '../styles/registration-login.css'
 
 export default function Login() {
@@ -10,28 +9,21 @@ export default function Login() {
     password: ''
   })
 
-  const signUp = async (e) => {
+  const signUp = async () => {
     try {
-      await axios.get('http://localhost:3000/users')
-        .then(res => res.data)
-        .then(users => users.find(user => user.email === formData.email))
-        .then(user => {
-          if (!user) {
-            console.log('no user');
-            return
-          }
-          if(bcrypt.compareSync(formData.password, user.password)){
-            console.log('correct data');
-          } else {
-            console.log('incorrect data');
-          }
-        })
+      await axios.post('http://localhost:3000/login', formData)
+        .then(res => console.log(res.data))
     } catch (err) {
       console.log(err);
     }
+    setFormData({
+      email: '',
+      password: ''
+    })
   }
 
   const inputChange = (e) => {
+    e.preventDefault()
     setFormData(() => ({
       ...formData,
       [e.target.name]: e.target.value

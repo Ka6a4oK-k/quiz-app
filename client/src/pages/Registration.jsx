@@ -24,10 +24,12 @@ export default function Registration() {
 
   const register = async (e) => {
     e.preventDefault()
-    const hashedPass = await bcrypt.hash(formData.password, 10);
+    const salt = await bcrypt.genSalt(10)
+    const hashedPass = await bcrypt.hash(formData.password, salt);
     const user = {...formData, password: hashedPass}
     try {
-      await axios.post('http://localhost:3000/users', user)
+      await axios.post('http://localhost:3000/registration', user)
+      .catch(err => console.log(err))
       setFormData({
         username: '',
         email: '',
