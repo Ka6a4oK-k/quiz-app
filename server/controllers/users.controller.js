@@ -1,5 +1,6 @@
 const db = require('../db.js')
 const bcrypt = require('bcryptjs')
+const jwtGenerator = require('../jwtGenerator')
 
 class UsersController {
     async createUser(req, res){
@@ -18,16 +19,19 @@ class UsersController {
         res.json(req.body+" user added")
     }
 
-    async signInUser(req, res){
-        const {email, password} = req.body
+    async signInUser(req, res) {
+        const { email, password } = req.body
         try {
             const user = await db.query("SELECT * FROM users where email = $1", [email])
-            if(user.rows[0]){
-                await bcrypt.compare(password, user.rows[0].password)
-                .then(res.json("user token"))
-            } else {
-                res.json("incorrect data");
+            if (!user.rows[0]) {
+                return res.json("incorrect data");
             }
+            const passIsValid = await bcrypt.compare(password, user.rows[0].password)
+            if (!passIsValid) {
+                return res.json("incorrect data");
+            }
+            const token = jwtGenerator(user.rows[0])
+            res.json({ token })
         } catch (err) {
             console.log(err);
         }

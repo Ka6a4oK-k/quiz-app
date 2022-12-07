@@ -9,7 +9,7 @@ export default function Login() {
     password: ''
   })
 
-  const signUp = async () => {
+  const signIn = async () => {
     try {
       await axios.post('http://localhost:3000/login', formData)
         .then(res => console.log(res.data))
@@ -36,7 +36,7 @@ export default function Login() {
       <h1 className='form-title'>Login</h1>
       <form onSubmit={(e) => {
         e.preventDefault()
-        signUp()
+        signIn()
       }}>
         <input type="email" onChange={inputChange} value={formData.email} name='email' placeholder='Email...' />
         <input type="password" onChange={inputChange} value={formData.password} name='password' placeholder='Password...' />
