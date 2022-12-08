@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import '../styles/registration-login.css'
 
-export default function Login() {
+export default function Login({setAuth}) {
 
   const [formData, setFormData] = useState({
     email: '',
@@ -11,8 +11,12 @@ export default function Login() {
 
   const signIn = async () => {
     try {
-      await axios.post('http://localhost:3000/login', formData)
-        .then(res => console.log(res.data))
+      const res = await axios.post('http://localhost:3000/login', formData)
+      const resData = res.data
+      if(resData.token){
+        localStorage.setItem('token', resData.token)
+        setAuth(true)
+      } 
     } catch (err) {
       console.log(err);
     }

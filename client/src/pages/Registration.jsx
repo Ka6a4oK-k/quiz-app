@@ -22,14 +22,13 @@ export default function Registration() {
       formData.password.match(PASSWORD_REGX))
   }, [formData])
 
-  const register = async (e) => {
+  const signUp = async (e) => {
     e.preventDefault()
     const salt = await bcrypt.genSalt(10)
     const hashedPass = await bcrypt.hash(formData.password, salt);
     const user = {...formData, password: hashedPass}
     try {
       await axios.post('http://localhost:3000/registration', user)
-      .catch(err => console.log(err))
       setFormData({
         username: '',
         email: '',
@@ -51,7 +50,7 @@ export default function Registration() {
   return (
     <div className='registration'>
       <h1 className='form-title'>Registration</h1>
-      <form onSubmit={(e) => { register(e) }}>
+      <form onSubmit={(e) => { signUp(e) }}>
         <input type="username" onChange={inputChange} value={formData.username} name='username' placeholder='Username...' />
         <input type="email" onChange={inputChange} value={formData.email} name='email' placeholder='Email...' />
         <input type="password" onChange={inputChange} value={formData.password} name='password' placeholder='Password...' />
