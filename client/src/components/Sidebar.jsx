@@ -13,7 +13,8 @@ export default function Sidebar({ setAuth, isAuthorized }) {
     <div className='sidebar'>
       <h1>Quizoff</h1>
       <ul>
-        {isAuthorized ? <button onClick={logout}>Log out</button> : <ul>
+        {isAuthorized ? <button onClick={logout}>Log out</button> : 
+        <ul>
           <Link to='/login'>Login</Link>
           <Link to='/registration'>Registration</Link>
         </ul>}

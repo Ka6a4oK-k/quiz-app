@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import QuestionAdding from '../components/NewQuiz/QuestionAdding'
 import AddedQuestion from '../components/NewQuiz/AddedQuestion'
 import { NewQuestionContext } from '../components/context/NewQuestionContext'
 import '../styles/newQuiz.css'
-import { useEffect } from 'react'
+import axios from 'axios'
 
 export default function NewQuiz() {
 
@@ -23,12 +23,14 @@ export default function NewQuiz() {
       && (description.trim() !== '')
       && (questions.length > 0)) {
       const quiz = {
-        user_id: '',
-        quiz_id: '',
         title,
         description,
         questions
       }
+      const token = localStorage.getItem('token')
+      await axios.post('http://localhost:3000/addQuiz', quiz, { headers: { Authorization: token } })
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     }
   }
 

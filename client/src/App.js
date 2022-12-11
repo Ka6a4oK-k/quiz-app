@@ -25,13 +25,12 @@ function App() {
     }
     try {
       const sendToken = async () => {
-        await axios.get('http://localhost:3000/verifyToken', {
-          headers: {Authorization: token}
-        }).then(res => setAuth(res))
+        await axios.get('http://localhost:3000/verifyToken', { headers: { Authorization: token } })
+          .then(res => {(res.data === true) ? setAuth(true) : setAuth(false)})
       }
       sendToken()
     } catch (err) {
-      console.log(err);
+      console.error(err.message)
     }
   }, [])
 

@@ -1,7 +1,6 @@
 const db = require('../db.js')
 const bcrypt = require('bcryptjs')
-const jwt = require("jsonwebtoken")
-const jwtGenerator = require('../jwtGenerator')
+const jwtGenerator = require('../jwt/jwtGenerator')
 
 class UsersController {
     async createUser(req, res){
@@ -14,7 +13,7 @@ class UsersController {
                 await db.query("INSERT INTO users (username, email, password) values ($1, $2, $3) RETURNING *", [username, email, password])
             }
         } catch (err) {
-            console.log(err);
+            console.error(err.message)
         }
         res.json(req.body+" user added")
     }
@@ -33,21 +32,7 @@ class UsersController {
             const token = jwtGenerator(user.rows[0])
             res.json({ token })
         } catch (err) {
-            console.log(err);
-        }
-    }
-
-    async checkToken(req, res) {
-        try {
-            const token = req.headers.authorization
-            if (!token) {
-                return console.log("no token");
-            }
-            const userData = await jwt.verify(token, "mega secret key")
-            console.log(userData);
-            res.json(true)
-        } catch (err) {
-            console.log(err);
+            console.error(err.message)
         }
     }
 }
