@@ -5,6 +5,8 @@ import Sidebar from './components/Sidebar';
 import Login from './pages/Login.jsx'
 import Registration from './pages/Registration.jsx'
 import NewQuiz from './pages/NewQuiz.jsx'
+import MyQuizes from './pages/MyQuizes';
+import QuizList from './pages/QuizList';
 import './app.css'
 import './styles/content.css'
 import axios from 'axios';
@@ -42,6 +44,8 @@ function App() {
           <Routes>
             <Route path='/login'  element={isAuthorized ? <Navigate to='/createQuiz' /> : <Login setAuth={setAuth} />} />
             <Route path='/registration' element={isAuthorized ? <Navigate to='/createQuiz' /> : <Registration />} />
+            <Route path='/myQuizes' element={isAuthorized ? <MyQuizes/> : <Navigate to='/login' />} />
+            <Route path='/quizList' element={isAuthorized ? <QuizList/> : <Navigate to='/login' />} />
             <Route path='/createQuiz' element={isAuthorized ? <NewQuiz /> : <Navigate to='/login' />}></Route>
             <Route path='/*' element={<Navigate to='/login' />} />
           </Routes>

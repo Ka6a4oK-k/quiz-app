@@ -8,5 +8,7 @@ router.post('/registratin', UsersController.createUser)
 router.post('/login', UsersController.signInUser)
 router.get('/verifyToken', tokenValidation.tokenValidation)
 router.post('/addQuiz', QuizesController.addQuiz)
+router.get('/myQuizes', QuizesController.getQuizes)
+router.get('/allQuizes', QuizesController.getAllQuizes)
 
 module.exports = router
