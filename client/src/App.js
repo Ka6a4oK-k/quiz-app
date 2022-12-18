@@ -7,6 +7,8 @@ import Registration from './pages/Registration.jsx'
 import NewQuiz from './pages/NewQuiz.jsx'
 import MyQuizes from './pages/MyQuizes';
 import QuizList from './pages/QuizList';
+import QuizUpdate from './pages/QuizUpdate';
+import TakeQuiz from './pages/TakeQuiz';
 import './app.css'
 import './styles/content.css'
 import axios from 'axios';
@@ -22,7 +24,6 @@ function App() {
   useEffect(() => { 
     const token =  localStorage.getItem('token')
     if (!token) {
-      console.log("no token");
       return setAuth(false)
     }
     try {
@@ -42,12 +43,24 @@ function App() {
         <Sidebar setAuth={setAuth} isAuthorized={isAuthorized} />
         <div className='content'>
           <Routes>
-            <Route path='/login'  element={isAuthorized ? <Navigate to='/createQuiz' /> : <Login setAuth={setAuth} />} />
-            <Route path='/registration' element={isAuthorized ? <Navigate to='/createQuiz' /> : <Registration />} />
-            <Route path='/myQuizes' element={isAuthorized ? <MyQuizes/> : <Navigate to='/login' />} />
-            <Route path='/quizList' element={isAuthorized ? <QuizList/> : <Navigate to='/login' />} />
-            <Route path='/createQuiz' element={isAuthorized ? <NewQuiz /> : <Navigate to='/login' />}></Route>
-            <Route path='/*' element={<Navigate to='/login' />} />
+            {isAuthorized ?
+              <>
+                <Route path='/myQuizes/'>
+                  <Route index element={<MyQuizes />} />
+                  <Route path='updateQuiz/:quiz_id' element={<QuizUpdate />} />
+                </Route>
+                <Route path='/quizList/' >
+                  <Route index element={<QuizList />}/>
+                  <Route path='takeQuiz/:quiz_id' element={<TakeQuiz />} />
+                </Route>
+                <Route path='/createQuiz' element={<NewQuiz />} />
+                <Route path='/*' element={<Navigate to='/createQuiz' />} />
+              </> : <>
+                <Route path='/login' element={<Login setAuth={setAuth} />} />
+                <Route path='/registration' element={<Registration />} />
+                <Route path='/*' element={<Navigate to='/login' />} />
+              </>
+            }
           </Routes>
         </div>
       </BrowserRouter>

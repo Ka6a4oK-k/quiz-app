@@ -10,5 +10,6 @@ router.get('/verifyToken', tokenValidation.tokenValidation)
 router.post('/addQuiz', QuizesController.addQuiz)
 router.get('/myQuizes', QuizesController.getQuizes)
 router.get('/allQuizes', QuizesController.getAllQuizes)
+router.get('/getQuiz/:id', QuizesController.getOneQuiz)
 
 module.exports = router

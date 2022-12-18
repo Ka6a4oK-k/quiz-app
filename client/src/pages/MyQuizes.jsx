@@ -6,12 +6,12 @@ export default function MyQuizes() {
 
     const [quizes, setQuizes] = useState([])
 
-    useEffect(()=> {
+    useEffect(() => {
         const getQuizes = async () => {
-            const token =  localStorage.getItem('token')
+            const token = localStorage.getItem('token')
             await axios.get('http://localhost:3000/myQuizes', { headers: { Authorization: token } })
-            .then(res => setQuizes(res.data))
-            .catch(err => console.log(err))
+                .then(res => setQuizes(res.data))
+                .catch(err => console.log(err))
         }
         getQuizes()
     }, [])
@@ -19,8 +19,9 @@ export default function MyQuizes() {
     return (
         <div>
             <h1>My Quizes</h1>
-            <div className='quiz-card'>
-                {Array.isArray(quizes) && quizes.map((quiz, index) => <QuizCard quiz={quiz} key={index}/> )}
+            <div>
+                {Array.isArray(quizes) && quizes.map((quiz, index) =>
+                    <QuizCard quiz={quiz} key={index} isOwner={true} />)}
             </div>
         </div>
     )

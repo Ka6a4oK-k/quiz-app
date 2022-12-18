@@ -43,6 +43,16 @@ class QuizesController {
             console.error(err.message)
         }
     }
+
+    async getOneQuiz(req, res) {
+        try {
+            const quiz_id = req.params.id
+            const quiz = await db.query('SELECT * FROM quizes where quiz_id = ($1)', [quiz_id])
+            res.json(quiz.rows[0])
+        } catch (err) {
+            console.error(err.message)
+        }
+    }
 }
 
 module.exports = new QuizesController()

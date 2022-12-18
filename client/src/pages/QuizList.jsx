@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import QuizCard from '../components/QuizCard'
 import axios from 'axios'
 
@@ -6,11 +6,11 @@ export default function QuizList() {
 
     const [quizes, setQuizes] = useState([])
 
-    useEffect(()=> {
+    useEffect(() => {
         const getQuizes = async () => {
             await axios.get('http://localhost:3000/allQuizes')
-            .then(res => setQuizes(res.data))
-            .catch(err => console.log(err))
+                .then(res => setQuizes(res.data))
+                .catch(err => console.log(err))
         }
         getQuizes()
     }, [])
@@ -19,7 +19,7 @@ export default function QuizList() {
         <div>
             <h1>QuizList</h1>
             <div className='quiz_list'>
-                {Array.isArray(quizes) && quizes.map((quiz, index) => <QuizCard quiz={quiz} key={index}/> )}
+                {Array.isArray(quizes) && quizes.map((quiz, index) => <QuizCard quiz={quiz} key={index} isOwner={false} />)}
             </div>
         </div>
     )

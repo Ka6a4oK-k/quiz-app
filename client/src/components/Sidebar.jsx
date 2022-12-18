@@ -11,7 +11,9 @@ export default function Sidebar({ setAuth, isAuthorized }) {
 
   return (
     <div className='sidebar'>
-      <h1>Quizoff</h1>
+      <div>
+        <h1>Quizoff</h1>
+      </div>
       <ul>
         {!isAuthorized && 
         <ul>
